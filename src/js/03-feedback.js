@@ -7,7 +7,7 @@ const refs = {
 };
 
 const FEEDBACK_FORM_STATE_KEY = 'feedback-form-state';
-let formData = getSavedData() || { email: '', message: '' };
+let formData = getSavedData();
 
 refs.input.value = formData.email;
 refs.message.value = formData.message;
@@ -40,10 +40,12 @@ function handleSubmit(e) {
 
 function getSavedData() {
   try {
-    const lsData = JSON.parse(localStorage.getItem(FEEDBACK_FORM_STATE_KEY));
-    return lsData;
+    const feedbackFormStateData = JSON.parse(
+      localStorage.getItem(FEEDBACK_FORM_STATE_KEY)
+    );
+    return feedbackFormStateData || { email: '', message: '' };
   } catch (error) {
     console.error('Error parsing saved form data', error);
-    return null;
+    return { email: '', message: '' };
   }
 }
