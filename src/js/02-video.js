@@ -30,6 +30,7 @@ if (!iframe) {
 
   const onPlay = function ({ seconds }) {
     if (seconds !== undefined) {
+      console.log('Storing seconds:', seconds);
       localStorage.setItem(LS_CURRENT_TIME_KEY, seconds);
     } else {
       console.error('Seconds value is undefined.');
@@ -40,6 +41,7 @@ if (!iframe) {
 
   const currentTime = localStorage.getItem(LS_CURRENT_TIME_KEY);
   if (currentTime !== null) {
+    console.log('Setting current time to:', currentTime);
     player.setCurrentTime(+currentTime).catch(function (error) {
       console.error('Error setting current time:', error);
     });
@@ -59,3 +61,8 @@ if (!iframe) {
     console.error('Error getting video title:', error);
   });
 }
+
+// Additional debugging for player events
+window.addEventListener('message', function(event) {
+  console.log('Message event:', event);
+});
